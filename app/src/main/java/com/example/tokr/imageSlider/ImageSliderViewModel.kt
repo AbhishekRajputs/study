@@ -3,7 +3,6 @@ package com.example.tokr.imageSlider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.tokr.modals.TotalHits
-import timber.log.Timber
 
 
 class ImageSliderViewModel : ViewModel(),
@@ -14,11 +13,9 @@ class ImageSliderViewModel : ViewModel(),
     fun getImages() {
         if (mutableLiveData.value == null) {
             ImageSliderViewModelImpl().getImages(this)
-            Timber.d("newdata")
         } else if (mutableLiveData.value != null) {
             val oldValue = mutableLiveData.value
             mutableLiveData.value = oldValue
-            Timber.d("olddata")
         }
     }
 
