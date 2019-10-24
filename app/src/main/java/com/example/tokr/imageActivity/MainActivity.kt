@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tokr.R
 import com.example.tokr.imageSlider.ImageSliderActivity
 import com.example.tokr.imageSlider.ImageSliderViewModel
+import com.example.tokr.viewPager2.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             R.id.image_slider -> startActivity(Intent(this, ImageSliderActivity::class.java))
+            R.id.view_pager -> startActivity(Intent(this, ViewPagerActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-
         android:id="@+id/image_slider"
         android:icon="@drawable/ic_insert_emoticon"
-        android:title="@string/slide_show"
-        app:showAsAction="always" />
+        android:title="@string/slide_show" />
+
+    <item
+        android:id="@+id/view_pager"
+        android:icon="@drawable/ic_insert_emoticon"
+        android:title="@string/view_pager" />
 
 
 </menu>
