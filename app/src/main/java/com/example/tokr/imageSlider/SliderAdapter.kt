@@ -1,9 +1,11 @@
-package com.example.tokr
+package com.example.tokr.imageSlider
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.example.tokr.R
+import com.example.tokr.modals.TotalHits
 import com.smarteist.autoimageslider.SliderViewAdapter
 import com.squareup.picasso.Picasso
 

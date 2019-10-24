@@ -1,9 +1,11 @@
-package com.example.tokr
+package com.example.tokr.imageActivity
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tokr.R
+import com.example.tokr.modals.TotalHits
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_view.view.*
 

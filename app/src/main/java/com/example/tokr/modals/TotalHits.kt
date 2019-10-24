@@ -1,4 +1,4 @@
-package com.example.tokr
+package com.example.tokr.modals
 
 
 import com.google.gson.annotations.SerializedName
