@@ -1,12 +1,15 @@
 package com.example.tokr.imageActivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.tokr.CommonUtils.showToast
 import com.example.tokr.R
+import com.example.tokr.imageSlider.ImageSliderActivity
 import com.example.tokr.imageSlider.ImageSliderViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,6 +24,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imageSliderViewModel.getImages()
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.item_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.image_slider -> startActivity(Intent(this, ImageSliderActivity::class.java))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
