@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.crashlytics.android.Crashlytics
 import com.example.tokr.R
 import com.example.tokr.imageSlider.ImageSliderActivity
 import com.example.tokr.imageSlider.ImageSliderViewModel
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imageSliderViewModel.getImages()
+//        Crashlytics.getInstance().crash()
 
     }
 
