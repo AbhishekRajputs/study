@@ -3,4 +3,7 @@
     <color name="colorPrimary">#1C58F5</color>
     <color name="colorPrimaryDark">#002AFF</color>
     <color name="colorAccent">#3B89FF</color>
+    <color name="saffron">#F4B63E</color>
+    <color name="eggplant">#663D4E</color>
+    <color name="sienna">#EB6460</color>
 </resources>

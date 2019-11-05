@@ -7,27 +7,33 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
-import com.crashlytics.android.Crashlytics
 import com.example.tokr.R
 import com.example.tokr.imageSlider.ImageSliderActivity
 import com.example.tokr.imageSlider.ImageSliderViewModel
 import com.example.tokr.viewPager2.ViewPagerActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_image.*
+import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.GridLayoutManager
+import com.example.tokr.CommonUtils.explodeAnimation
+import com.example.tokr.PullToRefreshView
 
 
-class MainActivity : AppCompatActivity() {
+class ImageActivity : AppCompatActivity() {
 
     private val imageSliderViewModel by lazy {
         ViewModelProviders.of(this).get(ImageSliderViewModel::class.java)
     }
 
+    private val REFRESH_DELAY = 4000
+    private val KEY_ICON = "icon"
+    private val KEY_COLOR = "color"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        explodeAnimation(window)
+        setContentView(R.layout.activity_image)
         imageSliderViewModel.getImages()
 //        Crashlytics.getInstance().crash()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,10 +55,24 @@ class MainActivity : AppCompatActivity() {
         imageSliderViewModel.mutableLiveData.observe(this, Observer {
             recycler_view.layoutManager =
                 GridLayoutManager(
-                    this@MainActivity, 3,
+                    this@ImageActivity, 3,
                     GridLayoutManager.VERTICAL, false
                 )
+            val animation = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation)
+            recycler_view.layoutAnimation = animation
             recycler_view.adapter = Adapter(it)
+
+
+            pull_to_refresh.setOnRefreshListener(object : PullToRefreshView.OnRefreshListener {
+                override fun onRefresh() {
+                    pull_to_refresh.postDelayed(
+                        { pull_to_refresh.setRefreshing(false) },
+                        REFRESH_DELAY.toLong()
+                    )
+                }
+            })
+
         })
     }
+
 }

@@ -4,15 +4,14 @@
     android:id="@+id/cardview_id"
     android:layout_width="130dp"
     android:layout_height="130dp"
-    android:layout_margin="5dp"
+    android:layout_margin="4dp"
     android:clickable="true"
     android:focusable="true"
     cardview:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/img_image"

@@ -3,12 +3,10 @@
 
     <item
         android:id="@+id/image_slider"
-        android:icon="@drawable/ic_insert_emoticon"
         android:title="@string/slide_show" />
 
     <item
         android:id="@+id/view_pager"
-        android:icon="@drawable/ic_insert_emoticon"
         android:title="@string/view_pager" />
 
 
