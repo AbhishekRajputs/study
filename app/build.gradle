@@ -7,6 +7,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.fabric'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/zapbuild/Desktop/abhishek.jks')
+            storePassword 'ztech@44'
+            keyAlias = 'Zapbuild'
+            keyPassword 'ztech@44'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -18,9 +26,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        debug {
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "false"]
+        }
         release {
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

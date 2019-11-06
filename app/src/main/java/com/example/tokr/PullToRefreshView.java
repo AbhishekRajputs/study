@@ -23,9 +23,7 @@ import com.example.tokr.pullToRefreshAnimation.SoupRefreshView;
 
 import java.security.InvalidParameterException;
 
-/**
- * Created by Alexey on 28.01.2016.
- */
+
 public class PullToRefreshView extends ViewGroup {
 
     private static final int STYLE_SOUP = 0;
@@ -114,11 +112,9 @@ public class PullToRefreshView extends ViewGroup {
 
     private void setRefreshStyle(int type) {
         setRefreshing(false);
-        switch (type) {
-            case STYLE_SOUP:
+        if (type == STYLE_SOUP) {
             mSoupRefreshView = new SoupRefreshView(this);
-            break;
-            default:
+        } else {
             throw new InvalidParameterException("Type does not exist");
         }
 
@@ -170,36 +166,36 @@ public class PullToRefreshView extends ViewGroup {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-            setTargetOffsetTop(0, true);
-            mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
-            mIsBeingDragged = false;
-            final float initialMotionY = getMotionEventY(ev, mActivePointerId);
-            if (initialMotionY == -1) {
-                return false;
-            }
-            mInitialMotionY = initialMotionY;
-            break;
+                setTargetOffsetTop(0, true);
+                mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
+                mIsBeingDragged = false;
+                final float initialMotionY = getMotionEventY(ev, mActivePointerId);
+                if (initialMotionY == -1) {
+                    return false;
+                }
+                mInitialMotionY = initialMotionY;
+                break;
             case MotionEvent.ACTION_MOVE:
-            if (mActivePointerId == INVALID_POINTER) {
-                return false;
-            }
-            final float y = getMotionEventY(ev, mActivePointerId);
-            if (y == -1) {
-                return false;
-            }
-            final float yDiff = y - mInitialMotionY;
-            if (yDiff > touchSlop && !mIsBeingDragged) {
-                mIsBeingDragged = true;
-            }
-            break;
+                if (mActivePointerId == INVALID_POINTER) {
+                    return false;
+                }
+                final float y = getMotionEventY(ev, mActivePointerId);
+                if (y == -1) {
+                    return false;
+                }
+                final float yDiff = y - mInitialMotionY;
+                if (yDiff > touchSlop && !mIsBeingDragged) {
+                    mIsBeingDragged = true;
+                }
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-            mIsBeingDragged = false;
-            mActivePointerId = INVALID_POINTER;
-            break;
+                mIsBeingDragged = false;
+                mActivePointerId = INVALID_POINTER;
+                break;
             case MotionEventCompat.ACTION_POINTER_UP:
-            onSecondaryPointerUp(ev);
-            break;
+                onSecondaryPointerUp(ev);
+                break;
         }
 
         return mIsBeingDragged;
@@ -232,9 +228,9 @@ public class PullToRefreshView extends ViewGroup {
                 float extraOS = Math.abs(scrollTop) - totalDragDistance;
                 float slingshotDist = totalDragDistance;
                 float tensionSlingshotPercent = Math.max(0,
-                Math.min(extraOS, slingshotDist * 2) / slingshotDist);
+                        Math.min(extraOS, slingshotDist * 2) / slingshotDist);
                 float tensionPercent = (float) ((tensionSlingshotPercent / 4) - Math.pow(
-                    (tensionSlingshotPercent / 4), 2)) * 2f;
+                        (tensionSlingshotPercent / 4), 2)) * 2f;
                 float extraMove = (slingshotDist) * tensionPercent / 2;
                 int targetY = (int) ((slingshotDist * boundedDragPercent) + extraMove);
 
@@ -243,12 +239,12 @@ public class PullToRefreshView extends ViewGroup {
                 break;
             }
             case MotionEventCompat.ACTION_POINTER_DOWN:
-            final int index = MotionEventCompat.getActionIndex(ev);
-            mActivePointerId = MotionEventCompat.getPointerId(ev, index);
-            break;
+                final int index = MotionEventCompat.getActionIndex(ev);
+                mActivePointerId = MotionEventCompat.getPointerId(ev, index);
+                break;
             case MotionEventCompat.ACTION_POINTER_UP:
-            onSecondaryPointerUp(ev);
-            break;
+                onSecondaryPointerUp(ev);
+                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
                 if (mActivePointerId == INVALID_POINTER) {
@@ -369,18 +365,15 @@ public class PullToRefreshView extends ViewGroup {
     }
 
     private boolean canChildScrollUp() {
-        if (android.os.Build.VERSION.SDK_INT < 14) {
-            if (target instanceof AbsListView) {
-                final AbsListView absListView = (AbsListView) target;
-                return absListView.getChildCount() > 0
-                        && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
+        if (target instanceof AbsListView) {
+            final AbsListView absListView = (AbsListView) target;
+            return absListView.getChildCount() > 0
+                    && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
                     .getTop() < absListView.getPaddingTop());
-            } else {
-                return target.getScrollY() > 0;
-            }
         } else {
-            return ViewCompat.canScrollVertically(target, -1);
+            return target.getScrollY() > 0;
         }
+
     }
 
 

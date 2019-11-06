@@ -9,16 +9,13 @@ import androidx.core.content.res.ResourcesCompat
 
 object CreateBitmapFactory {
 
-
     private val options by lazy {
         BitmapFactory.Options()
     }
 
-
     init {
         options.inPreferredConfig = Bitmap.Config.RGB_565
     }
-
 
     fun getBitmapFromImage(@DrawableRes id: Int, context: Context): Bitmap {
         return BitmapFactory.decodeResource(context.resources, id, options)

@@ -8,7 +8,6 @@ import android.view.animation.Interpolator
 
 class AnimationFactory {
 
-
     private val bounceInterpolator by lazy {
         BounceInterpolator()
     }
@@ -27,11 +26,11 @@ class AnimationFactory {
      * @return Animation
      */
     fun getBounce(animation: Animation): Animation {
-
-        configureAnimation(animation, bounceInterpolator, ANIMATION_DURATION, 0, 0, 0)
-
+        configureAnimation(
+            animation, bounceInterpolator, ANIMATION_DURATION,
+            0, 0, 0
+        )
         return animation
-
     }
 
     /**
@@ -40,9 +39,10 @@ class AnimationFactory {
      * @return Animation
      */
     fun getScale(animation: Animation): Animation {
-
-        configureAnimation(animation, accelerateInterpolator, ANIMATION_SCALE_DURATION, 0, 0, 0)
-
+        configureAnimation(
+            animation, accelerateInterpolator, ANIMATION_SCALE_DURATION,
+            0, 0, 0
+        )
         return animation
     }
 
@@ -53,14 +53,9 @@ class AnimationFactory {
      */
     fun getFlameScale(animation: Animation): Animation {
         configureAnimation(
-            animation,
-            decelerateInterpolator,
-            ANIMATION_FLAME_SCALE_DURATION,
-            0,
-            0,
-            0
+            animation, decelerateInterpolator, ANIMATION_FLAME_SCALE_DURATION,
+            0, 0, 0
         )
-
         return animation
     }
 
@@ -71,14 +66,9 @@ class AnimationFactory {
      */
     fun getFlameBurn(animation: Animation): Animation {
         configureAnimation(
-            animation,
-            decelerateInterpolator,
-            ANIMATION_FLAME_BURN_DURATION,
-            0,
-            Animation.REVERSE,
-            Animation.INFINITE
+            animation, decelerateInterpolator, ANIMATION_FLAME_BURN_DURATION,
+            0, Animation.REVERSE, Animation.INFINITE
         )
-
         return animation
     }
 
@@ -91,12 +81,8 @@ class AnimationFactory {
      */
     fun getBubble(animation: Animation, offset: Int): Animation {
         configureAnimation(
-            animation,
-            decelerateInterpolator,
-            ANIMATION_BUBBLE_DURATION,
-            offset,
-            Animation.RESTART,
-            Animation.INFINITE
+            animation, decelerateInterpolator, ANIMATION_BUBBLE_DURATION,
+            offset, Animation.RESTART, Animation.INFINITE
         )
         return animation
     }
@@ -108,25 +94,16 @@ class AnimationFactory {
      */
     fun getCover(animation: Animation): Animation {
         configureAnimation(
-            animation,
-            bounceInterpolator,
-            ANIMATION_COVER_DURATION,
-            ANIMATION_COVER_OFFSET,
-            Animation.REVERSE,
-            Animation.INFINITE
+            animation, bounceInterpolator, ANIMATION_COVER_DURATION,
+            ANIMATION_COVER_OFFSET, Animation.REVERSE, Animation.INFINITE
         )
-
         return animation
     }
 
 
     private fun configureAnimation(
-        animation: Animation,
-        interpolator: Interpolator,
-        duration: Int,
-        startOffset: Int,
-        repeatMode: Int,
-        repeatCount: Int
+        animation: Animation, interpolator: Interpolator, duration: Int,
+        startOffset: Int, repeatMode: Int, repeatCount: Int
     ) {
         animation.interpolator = interpolator
         animation.duration = duration.toLong()
