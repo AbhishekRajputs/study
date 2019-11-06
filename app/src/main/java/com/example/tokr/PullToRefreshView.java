@@ -58,7 +58,7 @@ public class PullToRefreshView extends ViewGroup {
             mCurrentDragPercent = mFromDragPercent - (mFromDragPercent - 1.0f) * interpolatedTime;
             mSoupRefreshView.setPercent(mCurrentDragPercent, false);
 
-            setTargetOffsetTop(offset, false /* requires update */);
+            setTargetOffsetTop(offset);
         }
     };
     private boolean mNotify;
@@ -166,7 +166,7 @@ public class PullToRefreshView extends ViewGroup {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                setTargetOffsetTop(0, true);
+                setTargetOffsetTop(0);
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
                 mIsBeingDragged = false;
                 final float initialMotionY = getMotionEventY(ev, mActivePointerId);
@@ -235,7 +235,7 @@ public class PullToRefreshView extends ViewGroup {
                 int targetY = (int) ((slingshotDist * boundedDragPercent) + extraMove);
 
                 mSoupRefreshView.setPercent(mCurrentDragPercent, true);
-                setTargetOffsetTop(targetY - mCurrentOffsetTop, true);
+                setTargetOffsetTop(targetY - mCurrentOffsetTop);
                 break;
             }
             case MotionEventCompat.ACTION_POINTER_DOWN:
@@ -315,7 +315,7 @@ public class PullToRefreshView extends ViewGroup {
         mCurrentDragPercent = targetPercent;
         mSoupRefreshView.setPercent(mCurrentDragPercent, true);
         target.setPadding(mTargetPaddingLeft, mTargetPaddingTop, mTargetPaddingRight, mTargetPaddingBottom + targetTop);
-        setTargetOffsetTop(offset, false);
+        setTargetOffsetTop(offset);
     }
 
     public void setRefreshing(boolean refreshing) {
@@ -355,13 +355,10 @@ public class PullToRefreshView extends ViewGroup {
         return MotionEventCompat.getY(ev, index);
     }
 
-    private void setTargetOffsetTop(int offset, boolean requiresUpdate) {
+    private void setTargetOffsetTop(int offset) {
         target.offsetTopAndBottom(offset);
         mSoupRefreshView.offsetTopAndBottom(offset);
         mCurrentOffsetTop = target.getTop();
-        if (requiresUpdate && android.os.Build.VERSION.SDK_INT < 11) {
-            invalidate();
-        }
     }
 
     private boolean canChildScrollUp() {

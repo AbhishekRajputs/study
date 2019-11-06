@@ -14,8 +14,8 @@ import com.example.tokr.viewPager2.ViewPagerActivity
 import kotlinx.android.synthetic.main.activity_image.*
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tokr.CommonUtils.explodeAnimation
-import com.example.tokr.PullToRefreshView
 
 
 class ImageActivity : AppCompatActivity() {
@@ -24,16 +24,11 @@ class ImageActivity : AppCompatActivity() {
         ViewModelProviders.of(this).get(ImageSliderViewModel::class.java)
     }
 
-    private val REFRESH_DELAY = 4000
-    private val KEY_ICON = "icon"
-    private val KEY_COLOR = "color"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         explodeAnimation(window)
         setContentView(R.layout.activity_image)
         imageSliderViewModel.getImages()
-//        Crashlytics.getInstance().crash()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,25 +48,31 @@ class ImageActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         imageSliderViewModel.mutableLiveData.observe(this, Observer {
-            recycler_view.layoutManager =
-                GridLayoutManager(
-                    this@ImageActivity, 3,
-                    GridLayoutManager.VERTICAL, false
-                )
+            val layoutManager = GridLayoutManager(
+                this@ImageActivity, 3,
+                GridLayoutManager.VERTICAL, false
+            )
+            recycler_view.layoutManager = layoutManager
             val animation = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation)
             recycler_view.layoutAnimation = animation
             recycler_view.adapter = Adapter(it)
 
-
-            pull_to_refresh.setOnRefreshListener(object : PullToRefreshView.OnRefreshListener {
-                override fun onRefresh() {
-                    pull_to_refresh.postDelayed(
-                        { pull_to_refresh.setRefreshing(false) },
-                        REFRESH_DELAY.toLong()
-                    )
+            // this is used to disable the pull to refreshview when first item is not visible
+            recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    pull_to_refresh.isEnabled =
+                        layoutManager.findFirstCompletelyVisibleItemPosition() === 0
                 }
             })
 
+            if (pull_to_refresh.isEnabled)
+                pull_to_refresh.setOnRefreshListener {
+                    pull_to_refresh.postDelayed(
+                        { pull_to_refresh.setRefreshing(false) },
+                        4000
+                    )
+                }
         })
     }
 

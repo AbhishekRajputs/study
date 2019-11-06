@@ -9,10 +9,8 @@ import com.example.tokr.modals.TotalHits
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_view.view.*
 
-
 class Adapter(private var list: ArrayList<TotalHits.Hit>) :
     RecyclerView.Adapter<Adapter.MyViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -27,7 +25,6 @@ class Adapter(private var list: ArrayList<TotalHits.Hit>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bindItems(list[position])
     }
-
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(hit: TotalHits.Hit) {
