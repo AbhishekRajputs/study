@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">tokr</string>
+    <string name="app_name">Image Animator</string>
     <string name="slide_show">Slide Show</string>
     <string name="view_pager">View Pager</string>
 </resources>

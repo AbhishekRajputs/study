@@ -1,4 +1,4 @@
-package com.example.tokr.imageActivity
+package com.example.tokr.imageGridActivity
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +9,19 @@ import com.example.tokr.modals.TotalHits
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_view.view.*
 
-class Adapter(private var list: ArrayList<TotalHits.Hit>) :
-    RecyclerView.Adapter<Adapter.MyViewHolder>() {
+class ImageGridAdapter(private var list: ArrayList<TotalHits.Hit>) :
+    RecyclerView.Adapter<ImageGridAdapter.MyViewHolder>() {
+
+    private lateinit var imageClickListener: ImageClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_view, parent, false)
         )
+    }
+
+    fun setImageClickListener(imageClickListener: ImageClickListener) {
+        this.imageClickListener = imageClickListener
     }
 
     override fun getItemCount(): Int {
@@ -32,7 +38,15 @@ class Adapter(private var list: ArrayList<TotalHits.Hit>) :
                 .fit()
                 .centerCrop()
                 .into(itemView.img_image)
+            itemView.img_image.setOnClickListener {
+                imageClickListener.imageClick(hit.largeImageURL)
+            }
         }
 
+    }
+
+
+    interface ImageClickListener {
+        fun imageClick(imageURL: String)
     }
 }

@@ -1,23 +1,41 @@
 package com.example.tokr
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.app.ActivityOptions
-import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Intent
-import com.example.tokr.CommonUtils.explodeAnimation
-import com.example.tokr.imageActivity.ImageActivity
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import com.example.tokr.imageGridActivity.ImageGridActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        image_view.setOnClickListener {
-            val options = ActivityOptions.makeSceneTransitionAnimation(this)
-            startActivity(Intent(this, ImageActivity::class.java), options.toBundle())
-        }
+        val animation = AnimationUtils.loadAnimation(this, R.anim.rotate_animation)
+        image_view.startAnimation(animation)
+
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                val options = ActivityOptions.makeSceneTransitionAnimation(this@MainActivity)
+                startActivity(
+                    Intent(this@MainActivity, ImageGridActivity::class.java),
+                    options.toBundle()
+                )
+                finish()
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+
+            }
+        })
     }
 }

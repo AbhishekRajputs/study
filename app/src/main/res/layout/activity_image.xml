@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".imageActivity.ImageActivity">
 
-    <com.example.tokr.PullToRefreshView
-        android:id="@+id/pull_to_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:type="soup">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:fadingEdge="vertical" />
-    </com.example.tokr.PullToRefreshView>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_viewer"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

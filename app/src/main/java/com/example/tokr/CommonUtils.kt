@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import android.util.TypedValue
+import timber.log.Timber
 import kotlin.math.roundToInt
 
 
@@ -47,4 +48,5 @@ object CommonUtils {
         window.enterTransition = explode
 
     }
+
 }
