@@ -14,8 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".imageActivity.ImageActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".mediaPlayer.MediaActivity" />
+        <activity android:name=".main.MainActivity" />
+        <activity
+            android:name=".imageActivity.ImageActivity"
+            android:screenOrientation="landscape" />
+
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
